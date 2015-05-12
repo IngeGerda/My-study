@@ -1,0 +1,194 @@
+<! Doctype html>
+<html>
+<title>Let's talk about... </title>
+<head> 
+<meta charset="utf-8">
+<h1> <em> George R.R.Martin "Game of Thrones" </em> </h1> 
+<style> 
+body {
+color: #00008B;
+background-image: url(fon.jpg);
+background-size: 100%;
+}
+ .menu ul {
+      margin: 0;
+      list-style: square outside;
+      padding-left: 30px;
+      display: none;
+    }
+    .menu .title {
+      font-size: 21px;
+      cursor: pointer;
+    }
+    .menu .title::before {
+      content: '▶ ';
+      font-size: 80%;
+      color: GreenYellow;
+    }
+    .menu.open .title::before {
+      content: '▼ ';
+    }
+    .menu.open ul {
+      display: block;
+    }
+	.carousel {
+      position: relative;
+	  left: 150px;
+	  top: 150px;
+      width: 398px;
+      padding: 40px 40px;
+      border: 1px solid #838B83;
+      border-radius: 15px;
+     background: #C1CDC1;
+     }
+     .carousel img {
+     width: 130px;
+     height: 130px;
+     display: block;
+	 }
+	 .carousel .arrow {
+     position: absolute;
+     top: 57px;
+     padding: 3px 8px 8px 9px;
+     background: #ddd;
+     border-radius: 15px;
+     font-size: 24px;
+     color: #444;
+     text-decoration: none;
+     }
+     .carousel .arrow:hover {
+     background: #ccc;
+     }
+    .carousel .left-arrow {
+    left: 7px;
+    } 
+    .carousel .right-arrow {
+    right: 7px;
+    }
+   .gallery {
+   width: 390px;
+   overflow: hidden;
+   }
+   .gallery ul {
+   height: 130px;
+   width: 9999px;
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   }  
+   .gallery ul li {
+   float: left;
+   }
+   .story{
+   position: relative;
+	  left: 850px;
+	  bottom:270px;
+      width: 300px;
+      padding: 20px 20px;
+      border: 3px solid #838B83;
+      border-radius: 15px;
+     background: #C1CDC1;
+   }
+   .remove-button{
+   position: absolute;
+   right:20px;
+   top: 10px;
+   padding-right:5px;
+   }
+</style>
+</head>
+<body>
+
+<div id = "name-of-kingdom" class="menu">
+  <span class="title">Seven Kingdoms:</span>
+  <ul>
+    <li>Kingdom of the North, Ruled by House of Winterfell</li>
+    <li>Kingdom of the Mountain and the Vale, ruled by House Arryn of the Evrie</li>
+    <li>Kingdom of the Isles and Rivers, ruled by House Hoare of Castle Harrenhall.Formed when the Iron Islands conquered the Riverlands</li>
+	<li>Kingdom of the Rock, ruled by House Lannister of Casterly Rock</li>
+	<li>Kingdom of the Stormlands, ruled by House Durrandon of Storm’s End</li>
+	<li>Kingdom of the  Reach, ruled by House Gardener of Highgarden</li>
+	<li>Dorne, ruled by House Martell of Sunspear</li>
+  </ul>
+</div>
+<script>
+    var menuElem = document.getElementById('name-of-kingdom');
+    var titleElem = menuElem.querySelector('.title');
+
+    titleElem.onclick = function() {
+      menuElem.classList.toggle('open');
+    };
+  </script>
+ 
+<div class = "carousel">
+<a href="#" class="arrow left-arrow" id="prev">‹</a>
+<div class="gallery">
+  <ul id = "images">
+    <li><img src="1.png"></li>
+    <li><img src="2.png"></li>
+    <li><img src="3.png"></li>
+    <li><img src="4.png"></li>
+    <li><img src="5.png"></li>
+    <li><img src="6.png"></li>
+    <li><img src="7.png"></li>
+    <li><img src="8.png"></li>
+    <li><img src="9.png"></li>
+    <li><img src="10.png"></li>
+  </ul>
+  </div>
+  <a href="#" class="arrow right-arrow" id="next">› </a>
+</div>
+   <script>
+	var width = 130; 
+    var count = 3; 
+    var ul = document.getElementById('images');
+    var images = ul.getElementsByTagName('li');
+    var position = 0;
+    
+	document.getElementById('prev').onclick = function() {
+		if (position >= 0) return false;
+		
+		position = Math.min(position + width*count, 0)
+		ul.style.marginLeft = position + 'px';
+		
+		return false;
+	}
+    
+	document.getElementById('next').onclick = function() {
+		if (position <= -width*(images.length-count)) return false;
+		
+		position = Math.max(position-width*count, -width*(images.length-count));
+		ul.style.marginLeft = position + 'px';
+		
+		return false;
+	}
+  </script>
+	<div id="messages-container">
+		<div class = "story">
+			<p>Dorne is the large peninsula which makes up the southern-most part of Westeros, and is one of the constituent regions of the Seven Kingdoms. Its capital is Sunspear and the lords of the rulingHouse Nymeros Martell style themselves "Prince" and "Princess" in the Rhoynish fashion. </p>
+			<button class="remove-button">[x]</button>
+		</div>
+		
+		  <div class = "story">
+			  <p>King of the Rock was the title used by the monarchs from House Lannister who ruled the western hills and valleys of Westeros that is now the westerlands. The capital of the Kingdom of the Rock was Casterly Rock near Lannisport</p>
+			  <button class="remove-button">[x]</button>
+		  </div>
+		  <div class = "story">
+			  <p>King in the North and King of Winter are ancient titles held for thousands of years by House Stark of Winterfell. They were the last kingdom of the First Menand continued to rule the North after the Andals invaded and took over the southern kingdoms of Westeros. While the running direwolf is the sigil of House Stark, some Kings in the North had personal variants.</p>
+			  <button class="remove-button">[x]</button>
+		  </div>
+  </div>
+  <script>
+    var container = document.getElementById('messages-container');
+
+    container.onclick = function(event) {
+		console.log(event.target.classList);
+      if (!event.target.classList.contains('remove-button')) return;
+
+      event.target.parentNode.hidden = !event.target.parentNode.hidden;
+    }
+  </script>
+ </body>
+
+ 
+</html>

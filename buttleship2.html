@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  
+</head>
+<body>
+  <style>
+    #battle-field-1, #battle-field-2 { width: 320px; height: 320px; float: left; margin: 10px; border: 1px dashed black; }
+    .ships-line { color: blue; margin: 10px; line-height: 5px; letter-spacing: 10px; }
+    .d { background: deeppink; }
+    .m { background: darkblue; }
+    #battle-field-1 div, #battle-field-2 div { width: 30px; height: 30px; float: left; border: 1px solid black;}
+	font-family:Arial;
+  </style>
+
+  <div id="battle-field-1"></div>
+  <div id="battle-field-2"></div>
+  <div id="output"></div>
+  <button id="start"> <em> <h2>Start to fight</h2> </em> </button>
+
+   <script>   
+  window.onload = function(w, h) {
+    var fpmap = [],
+        spmap = ['oooxxxoooo',
+                 'oxooooooox',
+                 'oooxoooxoo',
+                 'oooxoooxoo',
+                 'oooooooxoo',
+                 'oooooooxoo',
+                 'oooxxooooo',
+                 'xooooooooo',
+                 'ooooxxxooo',
+                 'xxooooooxo'],
+        fp = document.getElementById('battle-field-1'),
+        sp = document.getElementById('battle-field-2'),
+        outputDiv = document.getElementById("output"),
+        button = document.getElementById('start');
+    outputDiv.innerHTML = "<p><b><em> SEA BATTLE - It is almost always played on a 10x10 grid.Depending on the rules, a player may or may not take another shot on the same turn if an enemy ship is hit.Ships cannot occupy squares next to each other, horizontally, vertically or diagonally.Types of ships: four-funnel (1), three-funnel (2),two-funnel(3), single-funnel (4) Let's start the game!</em></b></p>";
+    button.onclick = function () {
+      button.disabled = true;
+      for (var a = 0; a < w; a++) {
+        var shipLine = prompt("Enter " + a + " line of your ships, where 'o' is an empty square and 'x' is a square with the ship", "xoooxxoooo");
+        fpmap.push(shipLine);
+        if (fpmap[a] != undefined) {
+          outputDiv.innerHTML += "<p class='ships-line'>" + fpmap[a] + "</p>";
+        }
+      }
+
+      for (i = 0; i < w; i++) for (j = 0; j < h; j++) {
+        div1 = document.createElement('div');
+        div1.id = i+'_'+j;
+        div1.className = fpmap[i][j];
+        if (fpmap[i][j] == 'x') {
+          div1.className = 'x';
+        } else {
+          div1.className = 'w';
+        }
+        fp.appendChild(div1);
+        div2 = document.createElement('div');
+        div2.className = spmap[i][j] == 'x' ? 'x' : 'w';
+        div2.onclick = function () { if (fire(this)) backfire(); };
+        sp.appendChild(div2);
+      }
+    };
+      function fire(el) {
+        if (el.className == 'd' || el.className == 'm') return false;
+        el.className = el.className == 'x' ? 'd' : 'm';
+        if (document.querySelectorAll('#battle-field-2 .x').length === 0) {
+          alert('Congratulations! You win the game!'); 
+          return false;
+        }
+        if (el.className == 'm') return true;
+      }
+      function backfire() {
+        for (i = w * h; i > 0; i--) {
+          var targets = document.querySelectorAll('#battle-field-1 .s, #battle-field-1 .w');
+          if (targets.length === 0 || fire(targets[Math.floor(Math.random() * targets.length)])) break;
+        }
+        if (document.querySelectorAll('#battle-field-1 .x').length === 0) alert('You have lost! Try again!');
+      }
+    }(10, 10);
+
+  </script>
+</body>
+</html>
